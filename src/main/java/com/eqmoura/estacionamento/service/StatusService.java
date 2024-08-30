@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.eqmoura.estacionamento.model.Status;
 import com.eqmoura.estacionamento.repository.StatusRepository;
 
-import ch.qos.logback.core.joran.util.beans.BeanUtil;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
