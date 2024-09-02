@@ -22,7 +22,7 @@ public class ModeloService {
     }
 
     public List<ModeloDTO> findAll() {
-        return ModeloMapper.toModeloDTOList(modeloRepository.findAll());
+        return ModeloMapper.toModeloDTO(modeloRepository.findAll());
     }
 
     public ModeloDTO findById(Long id) {

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eqmoura.estacionamento.dto.VeiculoDTO;
+import com.eqmoura.estacionamento.exceptions.VeiculoException;
 import com.eqmoura.estacionamento.service.VeiculoService;
 
 @RestController
@@ -24,7 +25,7 @@ public class VeiculoController {
     private VeiculoService veiculoService;
 
     @PostMapping
-    public ResponseEntity<VeiculoDTO> save(@RequestBody VeiculoDTO veiculoDTO) {
+    public ResponseEntity<VeiculoDTO> save(@RequestBody VeiculoDTO veiculoDTO) throws VeiculoException {
         return ResponseEntity.ok(veiculoService.save(veiculoDTO));
     }
 
@@ -39,7 +40,7 @@ public class VeiculoController {
     }
 
     @PutMapping
-    public ResponseEntity<VeiculoDTO> update(@RequestBody VeiculoDTO veiculoDTO) {
+    public ResponseEntity<VeiculoDTO> update(@RequestBody VeiculoDTO veiculoDTO) throws VeiculoException {
         return ResponseEntity.ok(veiculoService.update(veiculoDTO));
     }
 
