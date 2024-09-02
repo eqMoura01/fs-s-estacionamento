@@ -8,10 +8,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VeiculoDTO {
-
+    
     private Long id;
+    private ModeloDTO modeloDTO;
     private String placa;
     private String cor;
-    private ModeloDTO modelo;
-    private TipoDTO tipo;
+    private int anoFabricacao;
+    private int anoModelo;
 }

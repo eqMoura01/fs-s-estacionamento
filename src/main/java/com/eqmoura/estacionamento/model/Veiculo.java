@@ -19,13 +19,11 @@ public class Veiculo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String placa;
-
-    private String cor;
-
     @ManyToOne
     private Modelo modelo;
 
-    @ManyToOne
-    private Tipo tipo;
+    private String placa;
+    private String cor;
+    private int anoFabricacao;
+    private int anoModelo;
 }

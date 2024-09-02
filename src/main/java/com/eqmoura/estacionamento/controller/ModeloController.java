@@ -3,7 +3,6 @@ package com.eqmoura.estacionamento.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eqmoura.estacionamento.model.Modelo;
+import com.eqmoura.estacionamento.dto.ModeloDTO;
 import com.eqmoura.estacionamento.service.ModeloService;
 
 @RestController
@@ -25,28 +24,28 @@ public class ModeloController {
     private ModeloService modeloService;
 
     @PostMapping
-    public ResponseEntity<Modelo> save(@RequestBody Modelo modelo) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.modeloService.save(modelo));
+    public ResponseEntity<ModeloDTO> save(@RequestBody ModeloDTO modeloDTO) {
+        return ResponseEntity.ok(modeloService.save(modeloDTO));
     }
 
     @GetMapping
-    public ResponseEntity<List<Modelo>> findAll() {
-        return ResponseEntity.ok(this.modeloService.findAll());
+    public ResponseEntity<List<ModeloDTO>> findAll() {
+        return ResponseEntity.ok(modeloService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Modelo> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(this.modeloService.findById(id));
+    public ResponseEntity<ModeloDTO> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(modeloService.findById(id));
     }
 
     @PutMapping
-    public ResponseEntity<Modelo> update(@RequestBody Modelo modelo) {
-        return ResponseEntity.ok(this.modeloService.update(modelo));
+    public ResponseEntity<ModeloDTO> update(@RequestBody ModeloDTO modeloDTO) {
+        return ResponseEntity.ok(modeloService.update(modeloDTO));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
-        this.modeloService.deleteById(id);
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        modeloService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

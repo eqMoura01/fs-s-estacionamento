@@ -1,16 +1,15 @@
 package com.eqmoura.estacionamento.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.eqmoura.estacionamento.dto.ModeloDTO;
 import com.eqmoura.estacionamento.model.Modelo;
 import com.eqmoura.estacionamento.repository.ModeloRepository;
-
-import jakarta.persistence.EntityNotFoundException;
+import com.eqmoura.estacionamento.util.ModeloMapper;
 
 @Service
 public class ModeloService {
@@ -18,35 +17,28 @@ public class ModeloService {
     @Autowired
     private ModeloRepository modeloRepository;
 
-    public Modelo save(Modelo modelo) {
-        return modeloRepository.save(modelo);
+    public ModeloDTO save(ModeloDTO modeloDTO) {
+        return ModeloMapper.toModeloDTO(modeloRepository.save(ModeloMapper.toModelo(modeloDTO)));
     }
 
-    public List<Modelo> findAll() {
-        return modeloRepository.findAll();
+    public List<ModeloDTO> findAll() {
+        return ModeloMapper.toModeloDTOList(modeloRepository.findAll());
     }
 
-    public Modelo findById(Long id) {
-        Optional<Modelo> modelo = modeloRepository.findById(id);
-
-        if (modelo.isEmpty()) {
-            throw new EntityNotFoundException("Modelo com id " + id + " não encontrado");
-        }
-
-        return modelo.get();
+    public ModeloDTO findById(Long id) {
+        return ModeloMapper.toModeloDTO(modeloRepository.findById(id).orElse(null));
     }
 
-    public Modelo update(Modelo modelo) {
+    public ModeloDTO update(ModeloDTO modeloDTO) {
+        Modelo modeloDB = ModeloMapper.toModelo(this.findById(modeloDTO.getId()));
 
-        Modelo modeloEncontrado = findById(modelo.getId());
+        BeanUtils.copyProperties(ModeloMapper.toModelo(modeloDTO), modeloDB, "id");
 
-        BeanUtils.copyProperties(modelo, modeloEncontrado);
-
-        return modeloRepository.save(modeloEncontrado);
+        return save(ModeloMapper.toModeloDTO(modeloDB));
     }
 
-    public void deleteById(Long id) {
+    public void delete(Long id) {
+        this.findById(id);
         modeloRepository.deleteById(id);
     }
-
 }

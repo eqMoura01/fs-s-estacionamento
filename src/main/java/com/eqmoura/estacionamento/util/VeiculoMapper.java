@@ -1,31 +1,39 @@
 package com.eqmoura.estacionamento.util;
 
+import java.util.List;
+
 import com.eqmoura.estacionamento.dto.VeiculoDTO;
 import com.eqmoura.estacionamento.model.Veiculo;
 
 public class VeiculoMapper {
-    
-    public static VeiculoDTO toDTO(Veiculo veiculo) {
-        VeiculoDTO veiculoDTO = new VeiculoDTO();
 
+    public static Veiculo toVeiculo(VeiculoDTO veiculoDTO) {
+        Veiculo veiculo = new Veiculo();
+        veiculo.setId(veiculoDTO.getId());
+        veiculo.setModelo(ModeloMapper.toModelo(veiculoDTO.getModeloDTO()));
+        veiculo.setPlaca(veiculoDTO.getPlaca());
+        veiculo.setCor(veiculoDTO.getCor());
+        veiculo.setAnoFabricacao(veiculoDTO.getAnoFabricacao());
+        veiculo.setAnoModelo(veiculoDTO.getAnoModelo());
+        return veiculo;
+    }
+
+    public static VeiculoDTO toVeiculoDTO(Veiculo veiculo) {
+        VeiculoDTO veiculoDTO = new VeiculoDTO();
         veiculoDTO.setId(veiculo.getId());
+        veiculoDTO.setModeloDTO(ModeloMapper.toModeloDTO(veiculo.getModelo()));
         veiculoDTO.setPlaca(veiculo.getPlaca());
         veiculoDTO.setCor(veiculo.getCor());
-        veiculoDTO.setModelo(ModeloMapper.toDTO(veiculo.getModelo()));
-        veiculoDTO.setTipo(TipoMapper.toDTO(veiculo.getTipo()));
-
+        veiculoDTO.setAnoFabricacao(veiculo.getAnoFabricacao());
+        veiculoDTO.setAnoModelo(veiculo.getAnoModelo());
         return veiculoDTO;
     }
 
-    public static Veiculo toEntity(VeiculoDTO veiculoDTO) {
-        Veiculo veiculo = new Veiculo();
+    public static List<VeiculoDTO> toVeiculoDTO(List<Veiculo> veiculos) {
+        return veiculos.stream().map(VeiculoMapper::toVeiculoDTO).toList();
+    }
 
-        veiculo.setId(veiculoDTO.getId());
-        veiculo.setPlaca(veiculoDTO.getPlaca());
-        veiculo.setCor(veiculoDTO.getCor());
-        veiculo.setModelo(ModeloMapper.toEntity(veiculoDTO.getModelo()));
-        veiculo.setTipo(TipoMapper.toEntity(veiculoDTO.getTipo()));
-
-        return veiculo;
+    public static List<Veiculo> toVeiculo(List<VeiculoDTO> veiculosDTO) {
+        return veiculosDTO.stream().map(VeiculoMapper::toVeiculo).toList();
     }
 }

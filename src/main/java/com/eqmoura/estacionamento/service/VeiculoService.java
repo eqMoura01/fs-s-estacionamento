@@ -6,10 +6,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.eqmoura.estacionamento.dto.VeiculoDTO;
 import com.eqmoura.estacionamento.model.Veiculo;
 import com.eqmoura.estacionamento.repository.VeiculoRepository;
-
-import jakarta.persistence.EntityNotFoundException;
+import com.eqmoura.estacionamento.util.VeiculoMapper;
 
 @Service
 public class VeiculoService {
@@ -17,30 +17,27 @@ public class VeiculoService {
     @Autowired
     private VeiculoRepository veiculoRepository;
 
-    public Veiculo save(Veiculo veiculo) {
-        return veiculoRepository.save(veiculo);
+    public VeiculoDTO save(VeiculoDTO veiculoDTO) {
+        return VeiculoMapper.toVeiculoDTO(veiculoRepository.save(VeiculoMapper.toVeiculo(veiculoDTO)));
     }
 
-    public List<Veiculo> findAll() {
-        return veiculoRepository.findAll();
+    public VeiculoDTO update(VeiculoDTO veiculoDTO) {
+        Veiculo veiculoDB = veiculoRepository.findById(veiculoDTO.getId()).get();
+
+        BeanUtils.copyProperties(veiculoDTO, veiculoDB);
+
+        return VeiculoMapper.toVeiculoDTO(veiculoRepository.save(veiculoDB));
     }
 
-    public Veiculo findById(Long id) {
-        return veiculoRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Veículo com id " + id + " não encontrado"));
+    public List<VeiculoDTO> findAll() {
+        return VeiculoMapper.toVeiculoDTO(veiculoRepository.findAll());
     }
 
-    public Veiculo update(Veiculo veiculo) {
-
-        Veiculo veiculoEncontrado = findById(veiculo.getId());
-
-        BeanUtils.copyProperties(veiculo, veiculoEncontrado);
-
-        return veiculoRepository.save(veiculoEncontrado);
+    public VeiculoDTO findById(Long id) {
+        return VeiculoMapper.toVeiculoDTO(veiculoRepository.findById(id).get());
     }
 
-    public void deleteById(Long id) {
+    public void delete(Long id) {
         veiculoRepository.deleteById(id);
     }
-
 }

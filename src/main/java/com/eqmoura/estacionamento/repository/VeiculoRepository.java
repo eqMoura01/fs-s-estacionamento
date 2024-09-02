@@ -7,5 +7,5 @@ import com.eqmoura.estacionamento.model.Veiculo;
 
 @Repository
 public interface VeiculoRepository extends JpaRepository<Veiculo, Long> {
-
+    
 }
