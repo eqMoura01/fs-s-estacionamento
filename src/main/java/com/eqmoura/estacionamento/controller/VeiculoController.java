@@ -13,39 +13,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eqmoura.estacionamento.dto.ModeloDTO;
-import com.eqmoura.estacionamento.service.ModeloService;
+import com.eqmoura.estacionamento.dto.VeiculoDTO;
+import com.eqmoura.estacionamento.service.VeiculoService;
 
 @RestController
-@RequestMapping("/modelo")
-public class ModeloController {
+@RequestMapping("/veiculo")
+public class VeiculoController {
 
     @Autowired
-    private ModeloService modeloService;
+    private VeiculoService veiculoService;
 
     @PostMapping
-    public ResponseEntity<ModeloDTO> save(@RequestBody ModeloDTO modeloDTO) {
-        return ResponseEntity.ok(modeloService.save(modeloDTO));
+    public ResponseEntity<VeiculoDTO> save(@RequestBody VeiculoDTO veiculoDTO) {
+        return ResponseEntity.ok(veiculoService.save(veiculoDTO));
     }
 
     @GetMapping
-    public ResponseEntity<List<ModeloDTO>> findAll() {
-        return ResponseEntity.ok(modeloService.findAll());
+    public ResponseEntity<List<VeiculoDTO>> findAll() {
+        return ResponseEntity.ok(veiculoService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ModeloDTO> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(modeloService.findById(id));
+    public ResponseEntity<VeiculoDTO> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(veiculoService.findById(id));
     }
 
     @PutMapping
-    public ResponseEntity<ModeloDTO> update(@RequestBody ModeloDTO modeloDTO) {
-        return ResponseEntity.ok(modeloService.update(modeloDTO));
+    public ResponseEntity<VeiculoDTO> update(@RequestBody VeiculoDTO veiculoDTO) {
+        return ResponseEntity.ok(veiculoService.update(veiculoDTO));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        modeloService.delete(id);
+        veiculoService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }
