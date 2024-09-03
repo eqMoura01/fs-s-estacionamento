@@ -13,4 +13,8 @@ public interface FabricanteRepository extends JpaRepository<Fabricante, Long> {
 
     @Query(value = "SELECT * FROM fabricante WHERE ativo = true", nativeQuery = true)
     public List<Fabricante> findByAtivoTrue();
+
+    public List<Fabricante> findByNomeContainingIgnoreCase(String nome);
+
+    public List<Fabricante> findByNomeContainingIgnoreCaseAndAtivoTrue(String nome);
 }

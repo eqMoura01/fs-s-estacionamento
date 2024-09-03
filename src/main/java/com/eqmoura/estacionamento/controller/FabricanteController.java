@@ -54,4 +54,14 @@ public class FabricanteController {
     public ResponseEntity<List<Fabricante>> findAllAtivos() {
         return ResponseEntity.ok(fabricanteService.findAllAtivos());
     }
+
+    @GetMapping("/nome/{nome}")
+    public ResponseEntity<List<Fabricante>> findByNome(@PathVariable String nome) {
+        return ResponseEntity.ok(fabricanteService.findByNome(nome));
+    }
+
+    @GetMapping("/nome/{nome}/ativos")
+    public ResponseEntity<List<Fabricante>> findByNomeAtivos(@PathVariable String nome) {
+        return ResponseEntity.ok(fabricanteService.findByNomeAtivos(nome));
+    }
 }

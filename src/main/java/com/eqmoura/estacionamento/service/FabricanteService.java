@@ -57,4 +57,12 @@ public class FabricanteService {
         return fabricanteRepository.findByAtivoTrue();
     }
 
+    public List<Fabricante> findByNome(String nome) {
+        return fabricanteRepository.findByNomeContainingIgnoreCase(nome);
+    }
+
+    public List<Fabricante> findByNomeAtivos(String nome) {
+        return fabricanteRepository.findByNomeContainingIgnoreCaseAndAtivoTrue(nome);
+    }
+
 }
